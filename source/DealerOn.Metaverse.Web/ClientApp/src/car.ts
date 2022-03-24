@@ -1,28 +1,30 @@
 import { Actor, CollisionEndEvent, CollisionType, Engine, PostCollisionEvent, Shape, Side, Vector } from "excalibur";
 import { CarModel, cars } from "./resources";
 
-export default class Car extends Actor {
-  model: CarModel;
-
-  constructor(x : number, y : number, model: CarModel) {
+export class Suv extends Actor {
+  constructor(x : number, y : number) {
     super({
-      x,
-      y,
-      collider: Shape.Box(155,60, new Vector(0.5, 1)),
-      collisionType: CollisionType.Active,
-      anchor: new Vector(0.5, 1),
+      x, y,
+      collider: Shape.Capsule(90,50),
+      collisionType: CollisionType.Fixed
     });
-    this.model = model;
-    this.on("postcollision", e => this.onPostCollision(e));
-  }
-
-  onPostCollision(e: PostCollisionEvent<Actor>): void {
   }
 
   onInitialize(_engine: Engine): void {
-    this.graphics.use(cars.get(this.model)!.toSprite());
+    this.graphics.use(cars.get("4Runner")!.toSprite());
+  }
+}
+
+export class Sedan extends Actor {
+  constructor(x : number, y : number) {
+    super({
+      x, y,
+      collider: Shape.Circle(30, new Vector(0,8)),
+      collisionType: CollisionType.Fixed,
+    });
   }
 
-  onPreUpdate(_engine: Engine, _delta: number): void {  
+  onInitialize(_engine: Engine): void {
+    this.graphics.use(cars.get("Avalon")!.toSprite());
   }
 }

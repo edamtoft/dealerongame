@@ -1,7 +1,8 @@
 import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Side } from "excalibur";
-import PlayerBase from "./playerBase";
+import { PlayerBase } from "./playerBase";
 import { connection } from "./pushConnection";
 import { throttle } from "lodash";
+import { HubConnectionState } from "@microsoft/signalr";
 
 type Keys = {
   left: boolean,
@@ -10,12 +11,14 @@ type Keys = {
 }
 
 const sendUpdate = throttle((player : Player) => {
-  connection.invoke("updatePosition", player.state);
+  if (connection.state === HubConnectionState.Connected) {
+    connection.invoke("updatePosition", player.state);
+  }
 }, 250);
 
-export default class Player extends PlayerBase {
+export class Player extends PlayerBase {
   constructor(x: number, y: number) {
-    super((Math.random()*1e32).toString(36), x, y, CollisionType.Active);
+    super("player", x, y, "Orange",  CollisionType.Active);
   }
 
   onPostCollision(e: PostCollisionEvent<Actor>): void {
@@ -46,7 +49,7 @@ export default class Player extends PlayerBase {
     }
     
     if (keys.space) {
-      this.vel.y = -300;
+      this.vel.y = -400;
       this.onGround = false;
       return;
     }

@@ -2,8 +2,8 @@
   "name": "dealer-metaverse",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel serve index.html --port 1234",
-    "build": "parcel build ./index.html --disr-dir ./dist"
+    "start": "parcel serve index.html --https --port 1234",
+    "build": "parcel build ./index.html --dist-dir ./dist"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.180",

@@ -1,4 +1,5 @@
 using DealerOn.Metaverse.Web.Hubs;
+using Microsoft.AspNetCore.Http.Connections;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,10 @@ app.UseRouting();
 
 app.MapHub<GameHub>("/push", options =>
 {
-  options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.ServerSentEvents;
+  if (app.Environment.IsDevelopment())
+  {
+    options.Transports &= ~HttpTransportType.WebSockets;
+  }
 });
 app.MapFallbackToFile("index.html"); ;
 

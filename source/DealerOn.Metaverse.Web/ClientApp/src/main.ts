@@ -1,12 +1,12 @@
-import { Actor, CollisionType, Color, Engine, Physics, Vector } from "excalibur";
+import { Color, Engine, Physics, Vector } from "excalibur";
+import { Background } from "./colors";
 import Level from "./level";
-import Player from "./player";
 import { loader } from "./resources";
 
 const game = new Engine({
   width: 800,
   height: 600,
-  backgroundColor: Color.fromHex("#152B51"),
+  backgroundColor: Background,
   canvasElementId: "gamecanvas"
 });
 
