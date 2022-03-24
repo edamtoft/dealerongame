@@ -1,0 +1,7 @@
+{
+  "/push": {
+    "target": "https://localhost:7163",
+    "secure": false,
+    "ws": true
+  } 
+}

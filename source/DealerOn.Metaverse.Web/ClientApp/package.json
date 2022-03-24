@@ -1,0 +1,20 @@
+{
+  "name": "dealer-metaverse",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel serve index.html --port 1234",
+    "build": "parcel build ./index.html --disr-dir ./dist"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.180",
+    "http-proxy-middleware": "^2.0.4",
+    "parcel": "^2.3.2",
+    "process": "^0.11.10",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@microsoft/signalr": "^6.0.3",
+    "excalibur": "^0.25.3",
+    "lodash": "^4.17.21"
+  }
+}
