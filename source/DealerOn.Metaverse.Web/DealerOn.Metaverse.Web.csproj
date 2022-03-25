@@ -11,6 +11,7 @@
     <SpaProxyServerUrl>https://localhost:1234</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
+    <NpmBuild>true</NpmBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,12 +29,12 @@
     <Folder Include="ClientApp\" />
   </ItemGroup>
 
-  <Target Name="NpmInstall" BeforeTargets="Build" Inputs="$(SpaRoot)package-lock.json" Outputs="$(SpaRoot)node_modules\.installtimestamp">
+  <Target Condition="$(NpmBuild)=='true'" Name="NpmInstall" BeforeTargets="Build" Inputs="$(SpaRoot)package-lock.json" Outputs="$(SpaRoot)node_modules\.installtimestamp">
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Touch Files="$(SpaRoot)node_modules\.installtimestamp" AlwaysCreate="true" />
   </Target>
 
-  <Target Name="NpmBuild" AfterTargets="ComputeFilesToPublish">
+  <Target Condition="$(NpmBuild)=='true'" Name="NpmBuild" AfterTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**" />
