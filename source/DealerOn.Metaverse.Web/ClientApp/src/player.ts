@@ -4,6 +4,8 @@ import { connection } from "./pushConnection";
 import { throttle } from "lodash";
 import { HubConnectionState } from "@microsoft/signalr";
 
+const UPDATE_FREQUENCY = 250;//ms
+
 type Keys = {
   left: boolean,
   right: boolean,
@@ -14,7 +16,7 @@ const sendUpdate = throttle((player : Player) => {
   if (connection.state === HubConnectionState.Connected) {
     connection.invoke("updatePosition", player.state);
   }
-}, 250);
+}, UPDATE_FREQUENCY);
 
 export class Player extends PlayerBase {
   constructor(x: number, y: number) {
@@ -44,14 +46,9 @@ export class Player extends PlayerBase {
   }
 
   private setYVelocity(keys : Keys) : void {
-    if (!this.onGround) {
-      return;
-    }
-    
-    if (keys.space) {
+    if (this.onGround && keys.space) {
       this.vel.y = -400;
       this.onGround = false;
-      return;
     }
   }
 
@@ -62,13 +59,12 @@ export class Player extends PlayerBase {
     if (keys.left && !keys.right) {
       this.vel.x = -150;
       this.facing = "left";
-      return;
     }
-    if (keys.right && !keys.left) {
+    else if (keys.right && !keys.left) {
       this.vel.x = 150;
       this.facing = "right";
-      return;
+    } else {
+      this.vel.x = 0;
     }
-    this.vel.x = 0;
   }
 }

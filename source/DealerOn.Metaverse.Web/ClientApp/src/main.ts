@@ -1,6 +1,6 @@
-import { Color, Engine, Physics, Vector } from "excalibur";
+import { Engine, Physics, Vector } from "excalibur";
 import { Background } from "./colors";
-import Level from "./level";
+import { Level } from "./level";
 import { loader } from "./resources";
 
 const game = new Engine({

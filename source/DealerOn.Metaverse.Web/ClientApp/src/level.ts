@@ -1,18 +1,17 @@
-import { HubConnectionState } from "@microsoft/signalr";
-import { Actor, CollisionType, Color, Engine, Font, Random, Scene, Text, Vector } from "excalibur";
+import { Engine, Random, Scene } from "excalibur";
 import { Sedan, Suv } from "./car";
 import { Level1Blocks, Level2Blocks, Level3Blocks, Level4Blocks } from "./colors";
 import { Npc } from "./npc";
-import { Platform, BLOCK_SIZE } from "./platform";
+import { Platform } from "./platform";
 import { Player } from "./player";
-import { Direction, PlayerState } from "./playerBase";
+import { PlayerState } from "./playerBase";
 
 import { connected, connection } from "./pushConnection";
 import { WelcomeSign } from "./welcomeSign";
 
 const rng = new Random();
 
-export default class Level extends Scene {
+export class Level extends Scene {
   player!: Player;
   others: Map<string,Npc> = new Map();
   

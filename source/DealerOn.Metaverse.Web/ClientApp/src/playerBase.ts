@@ -1,4 +1,4 @@
-import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, PostCollisionEvent, Scene, Shape, Side, Text } from "excalibur";
+import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, PostCollisionEvent, Shape, Side } from "excalibur";
 import { PlayerColor, players } from "./resources";
 
 export type Direction = "left"|"right";

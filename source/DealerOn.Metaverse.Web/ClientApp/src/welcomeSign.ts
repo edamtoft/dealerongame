@@ -1,5 +1,5 @@
 import { Actor, Engine, Font, Text } from "excalibur";
-import { Level1Blocks, Level2Blocks } from "./colors";
+import { Level1Blocks } from "./colors";
 
 export class WelcomeSign extends Actor {
   constructor(x : number, y : number) {

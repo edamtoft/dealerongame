@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Color, Polygon, Shape } from "excalibur";
+import { Actor, CollisionType, Color } from "excalibur";
 
 export const BLOCK_SIZE = 50;
 

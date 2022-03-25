@@ -1,5 +1,5 @@
-import { Actor, CollisionEndEvent, CollisionType, Engine, PostCollisionEvent, Shape, Side, Vector } from "excalibur";
-import { CarModel, cars } from "./resources";
+import { Actor, CollisionType, Engine, Shape, Vector } from "excalibur";
+import { cars } from "./resources";
 
 export class Suv extends Actor {
   constructor(x : number, y : number) {
