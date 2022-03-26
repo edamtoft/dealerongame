@@ -21,7 +21,7 @@ export abstract class PlayerBase extends Actor {
   
   constructor(name:string, x: number, y: number, color: PlayerColor, collisionType: CollisionType) {
     super({
-      name, x, y,
+      name, x, y, z: 10,
       collisionType,
       collider: Shape.Box(24,64),
       collisionGroup: group,

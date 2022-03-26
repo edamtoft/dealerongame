@@ -1,16 +1,16 @@
 import { Engine, Physics, Vector } from "excalibur";
-import { Background } from "./colors";
+import * as Theme from "./theme";
 import { Level } from "./level";
 import { loader } from "./resources";
 
 const game = new Engine({
   width: 800,
   height: 600,
-  backgroundColor: Background,
+  backgroundColor: Theme.Light,
   canvasElementId: "gamecanvas"
 });
 
-Physics.acc = new Vector(0, 500);
+Physics.gravity = new Vector(0, 500);
 
 const level = new Level();
 game.addScene("level", level);

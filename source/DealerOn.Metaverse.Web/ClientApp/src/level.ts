@@ -1,13 +1,15 @@
 import { Engine, Random, Scene } from "excalibur";
+import { Emoji } from "./emoji";
 import { Sedan, Suv } from "./car";
-import { Level1Blocks, Level2Blocks, Level3Blocks, Level4Blocks } from "./colors";
+import * as Theme from "./theme";
 import { Npc } from "./npc";
 import { Platform } from "./platform";
 import { Player } from "./player";
 import { PlayerState } from "./playerBase";
 
 import { connected, connection } from "./pushConnection";
-import { WelcomeSign } from "./welcomeSign";
+import { DealerOnLogo } from "./dealeronLogo";
+import { Trophy } from "./trophy";
 
 const rng = new Random();
 
@@ -20,13 +22,13 @@ export class Level extends Scene {
   }
 
   onInitialize(_engine: Engine): void {
-    this.add(new WelcomeSign(0, -250));
     //0,-300
     //710, -600
     //2300,-300
     //1300, -800
     //300, -900
-    this.player = new Player(rng.integer(-25,25), -400);
+    //this.player = new Player(rng.integer(-25,25), -400);
+    this.player = new Player(-2500, -100);
     this.add(this.player);
     this.initializeFloatingPlatforms();
     this.camera.clearAllStrategies();
@@ -37,37 +39,46 @@ export class Level extends Scene {
   }
 
   private initializeFloatingPlatforms() {
-    
-    this.add(new Platform(0, 0, Level1Blocks, 20)); // ground
-    this.add(new Platform(150, -200, Level1Blocks, 4));
-    this.add(new Platform(-200, -120, Level1Blocks, 3));
-    this.add(new Platform(400, -250, Level1Blocks, 2));
-    this.add(new Platform(150, -350, Level1Blocks, 2));
-    this.add(new Platform(400, -450, Level1Blocks, 1));
-    this.add(new Platform(-750, -200, Level1Blocks, 10));
-    this.add(new Platform(-1300, -150, Level1Blocks, 5));
+    this.add(new Platform(0, 0, Theme.Gray, 20)); // ground
+    this.add(new Emoji(0, -50, "🔝"));
+    this.add(new DealerOnLogo(200, -80));
+    this.add(new Platform(150, -200, Theme.Gray, 4));
+    this.add(new Platform(-200, -120, Theme.Gray, 3));
+    this.add(new Platform(400, -250, Theme.Gray, 2));
+    this.add(new Platform(150, -350, Theme.Gray, 2));
+    this.add(new Platform(400, -450, Theme.Gray, 1));
+    this.add(new Platform(-750, -200, Theme.Gray, 10));
+    this.add(new Platform(-1300, -150, Theme.Gray, 5));
     this.add(new Suv(710, -450));
-    this.add(new Platform(1000, -200, Level2Blocks, 4));
-    this.add(new Platform(1300, -200, Level2Blocks, 2));
-    this.add(new Platform(1600, 0, Level2Blocks, 3));
-    this.add(new Platform(1900, 0, Level2Blocks, 2));
-    this.add(new Platform(2100, -120, Level2Blocks, 1));
+    this.add(new Platform(1000, -200, Theme.Sky, 4));
+    this.add(new Platform(1300, -200, Theme.Sky, 2));
+    this.add(new Platform(1600, 0, Theme.Sky, 3));
+    this.add(new Platform(1900, 0, Theme.Sky, 2));
+    this.add(new Platform(2100, -120, Theme.Sky, 1));
     this.add(new Sedan(2300, -250));
-    this.add(new Platform(2100, -320, Level3Blocks, 1));
-    this.add(new Platform(1800, -400, Level3Blocks, 3));
-    this.add(new Platform(1450, -400, Level3Blocks, 3));
-    this.add(new Platform(1200, -520, Level3Blocks, 1));
-    this.add(new Platform(1000, -650, Level3Blocks, 1));
-    this.add(new Platform(1300, -740, Level3Blocks, 3));
-    this.add(new Platform(1600, -850, Level3Blocks, 2));
-    this.add(new Platform(1300, -950, Level3Blocks, 2));
+    this.add(new Platform(2100, -320, Theme.Orange, 1));
+    this.add(new Platform(1800, -400, Theme.Orange, 3));
+    this.add(new Platform(1450, -400, Theme.Orange, 3));
+    this.add(new Platform(1200, -520, Theme.Orange, 1));
+    this.add(new Platform(1000, -650, Theme.Orange, 1));
+    this.add(new Platform(1300, -740, Theme.Orange, 3));
+    this.add(new Platform(1600, -850, Theme.Orange, 2));
+    this.add(new Platform(1300, -950, Theme.Orange, 2));
     this.add(new Suv(950, -950));
-    this.add(new Platform(400, -800, Level4Blocks, 10));
-    this.add(new Platform(50, -900, Level4Blocks, 1));
-    this.add(new Platform(-200, -1000, Level4Blocks, 2, 1));
-    this.add(new Platform(-400, -1100, Level4Blocks, 2, -1));
-    this.add(new Platform(-600, -1200, Level4Blocks, 2, -1));
-    this.add(new Platform(-1000, -1100, Level4Blocks, 3));
+    this.add(new Platform(400, -800, Theme.Blue, 10));
+    this.add(new Emoji(100, -850, "↖️"));
+    this.add(new Platform(50, -900, Theme.Blue, 1));
+    this.add(new Platform(-200, -1000, Theme.Blue, 2, 1));
+    this.add(new Platform(-400, -1100, Theme.Blue, 2, -1));
+    this.add(new Platform(-600, -1200, Theme.Blue, 2, -1));
+    this.add(new Platform(-1000, -1100, Theme.Blue, 3));
+    this.add(new Emoji(-1150, -1150, "↙️"));
+    this.add(new Sedan(-1400, -900));
+    this.add(new Sedan(-1700, -800));
+    this.add(new Sedan(-2000, -700));
+    this.add(new Emoji(-2100, -750, "↙️"));
+    this.add(new Platform(-2500, 0, Theme.Sky, 3));
+    this.add(new Trophy(-2500, -20));
   }
 
   async initializeConnection() : Promise<void> {
@@ -79,10 +90,10 @@ export class Level extends Scene {
 
     connection.on("playerUpdate", (id : string, state : PlayerState) => {
       if (!this.others.has(id)) {
-        const newPlayer = new Npc(id, 0, 0);
-        newPlayer.state = state;
-        this.add(newPlayer);
+        const newPlayer = new Npc(id, state.x, state.y);
         this.others.set(id, newPlayer);
+        this.add(newPlayer);
+        newPlayer.state = state;
       } else {
         const other = this.others.get(id)!;
         other.state = state;

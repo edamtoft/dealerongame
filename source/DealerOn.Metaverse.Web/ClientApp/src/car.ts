@@ -4,7 +4,7 @@ import { cars } from "./resources";
 export class Suv extends Actor {
   constructor(x : number, y : number) {
     super({
-      x, y,
+      x, y, z: 30,
       collider: Shape.Capsule(90,50),
       collisionType: CollisionType.Fixed
     });
@@ -18,7 +18,7 @@ export class Suv extends Actor {
 export class Sedan extends Actor {
   constructor(x : number, y : number) {
     super({
-      x, y,
+      x, y, z: 30,
       collider: Shape.Circle(30, new Vector(0,8)),
       collisionType: CollisionType.Fixed,
     });

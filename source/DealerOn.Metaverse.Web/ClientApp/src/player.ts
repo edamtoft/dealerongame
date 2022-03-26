@@ -42,6 +42,7 @@ export class Player extends PlayerBase {
   }
 
   onPostUpdate(_engine: Engine, _delta: number): void {
+    super.onPostUpdate(_engine, _delta);
     sendUpdate(this);
   }
 

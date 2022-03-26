@@ -11,7 +11,7 @@ COPY . .
 RUN dotnet publish -p:NpmBuild=false -c Release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /app
+WORKDIR /app  
 EXPOSE 80
 COPY --from=net-build /app .
 COPY --from=js-build /build/dist ./wwwroot

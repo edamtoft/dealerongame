@@ -35,4 +35,7 @@ const grid = {
 players.set("Orange", SpriteSheet.fromImageSource({ image: humanOrange, grid }));
 players.set("Blue", SpriteSheet.fromImageSource({ image: humanBlue, grid }));
 
-export { players, loader, cars };
+const logo = new ImageSource(logoUrl);
+loader.addResource(logo);
+
+export { players, loader, cars, logo };
