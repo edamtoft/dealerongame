@@ -85,9 +85,7 @@ export abstract class PlayerBase extends Actor {
     }
   }
 
-  onPreUpdate(_engine: Engine, _delta: number): void {
-    this.updateGraphics();
-  }
+  abstract onPreUpdate(_engine: Engine, _delta: number): void;
   
   protected updateGraphics() {
     if (!this.onGround) {
