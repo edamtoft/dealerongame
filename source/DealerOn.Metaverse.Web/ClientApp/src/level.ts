@@ -27,8 +27,8 @@ export class Level extends Scene {
     //2300,-300
     //1300, -800
     //300, -900
-    //this.player = new Player(rng.integer(-25,25), -400);
-    this.player = new Player(-2500, -100);
+    this.player = new Player(rng.integer(-25,25), -400);
+    //this.player = new Player(-2500, -100);
     this.add(this.player);
     this.initializeFloatingPlatforms();
     this.camera.clearAllStrategies();
