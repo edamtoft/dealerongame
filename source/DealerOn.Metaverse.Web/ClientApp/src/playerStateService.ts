@@ -28,4 +28,4 @@ export const sendUpdate = throttle((player : Player) => {
 
   connection.invoke("updatePosition", state);
   lastUpdate = state;
-}, UPDATE_FREQUENCY);
+}, UPDATE_FREQUENCY, { trailing: true, leading: true });
