@@ -5,11 +5,10 @@ import * as Theme from "./theme";
 import { Npc } from "./npc";
 import { Platform } from "./platform";
 import { Player } from "./player";
-import { PlayerState } from "./playerBase";
-
 import { connected, connection } from "./pushConnection";
 import { DealerOnLogo } from "./dealeronLogo";
 import { Trophy } from "./trophy";
+import { PlayerState } from "./playerState";
 
 const rng = new Random();
 

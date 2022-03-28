@@ -1,22 +1,12 @@
 import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Side } from "excalibur";
 import { PlayerBase } from "./playerBase";
-import { connection } from "./pushConnection";
-import { throttle } from "lodash";
-import { HubConnectionState } from "@microsoft/signalr";
-
-const UPDATE_FREQUENCY = 250;//ms
+import { sendUpdate } from "./playerStateService";
 
 type Keys = {
   left: boolean,
   right: boolean,
   space: boolean,
 }
-
-const sendUpdate = throttle((player : Player) => {
-  if (connection.state === HubConnectionState.Connected) {
-    connection.invoke("updatePosition", player.state);
-  }
-}, UPDATE_FREQUENCY);
 
 export class Player extends PlayerBase {
   constructor(x: number, y: number) {

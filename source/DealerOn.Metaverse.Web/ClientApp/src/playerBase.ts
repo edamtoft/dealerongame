@@ -1,16 +1,6 @@
 import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, PostCollisionEvent, Shape, Side } from "excalibur";
+import { Direction, EquatablePlayerState, PlayerState } from "./playerState";
 import { PlayerColor, players } from "./resources";
-
-export type Direction = "left"|"right";
-
-export type PlayerState = {
-  x : number,
-  y : number,
-  xVel : number,
-  yVel : number,
-  facing: Direction,
-  onGround: boolean,
-};
 
 const group = CollisionGroupManager.create("players");
 
@@ -31,15 +21,15 @@ export abstract class PlayerBase extends Actor {
     this.playerColor = color;
   }
 
-  get state() : PlayerState {
-    return {
+  get state() : EquatablePlayerState {
+    return new EquatablePlayerState({
       x: this.pos.x,
       y: this.pos.y,
       xVel: this.vel.x,
       yVel: this.vel.y,
       facing: this.facing,
-      onGround: this.onGround,
-    };
+      onGround: this.onGround
+    });
   }
 
   set state(state : PlayerState) {
