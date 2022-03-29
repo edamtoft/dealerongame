@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Side } from "excalibur";
+import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Scene, Side } from "excalibur";
 import { PlayerBase } from "./playerBase";
 import { sendUpdate } from "./playerStateService";
 

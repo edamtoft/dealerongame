@@ -21,15 +21,20 @@ export class Level extends Scene {
   }
 
   onInitialize(_engine: Engine): void {
+    this.initializeFloatingPlatforms();
+    this.spawnPlayer();
+    this.initializeConnection();
+  }
+
+  spawnPlayer() {
     //0,-300
     //710, -600
     //2300,-300
     //1300, -800
     //300, -900
     this.player = new Player(rng.integer(-25,25), -400);
-    //this.player = new Player(-2500, -100);
+    this.player.on("kill", e => this.spawnPlayer());
     this.add(this.player);
-    this.initializeFloatingPlatforms();
     this.camera.clearAllStrategies();
     this.camera.x = this.player.center.x;
     this.camera.y = this.player.center.y;
@@ -90,6 +95,7 @@ export class Level extends Scene {
     connection.on("playerUpdate", (id : string, state : PlayerState) => {
       if (!this.others.has(id)) {
         const newPlayer = new Npc(id, state.x, state.y);
+        newPlayer.on("kill", e => this.others.delete(id));
         this.others.set(id, newPlayer);
         this.add(newPlayer);
         newPlayer.state = state;

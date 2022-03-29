@@ -13,6 +13,7 @@ loader.logo = logoUrl;
 loader.logoHeight = 55;
 loader.logoWidth = 155;
 loader.backgroundColor = "#274E91";
+loader.playButtonText = "Enter";
 
 const cars = new Map<CarModel,ImageSource>();
 cars.set("4Runner", new ImageSource(fourRunnerUrl));
