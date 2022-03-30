@@ -15,7 +15,7 @@ let lastUpdate : EquatablePlayerState = new EquatablePlayerState({
   onGround: true
 });
 
-export const sendUpdate = throttle((player : Player) => {
+export const sendUpdate = throttle(async (player : Player) => {
   const state = player.state;
 
   if (state.equals(lastUpdate)) {
@@ -26,6 +26,7 @@ export const sendUpdate = throttle((player : Player) => {
     return;
   }
 
-  connection.invoke("updatePosition", state);
   lastUpdate = state;
+  const playerId = await connection.invoke("updateState", state);
+  player.playerId = playerId;
 }, UPDATE_FREQUENCY, { trailing: true, leading: true });

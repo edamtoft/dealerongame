@@ -6,6 +6,4 @@ const connection = new HubConnectionBuilder()
   .configureLogging(LogLevel.Information)
   .build();
 
-const connected = connection.start();
-
-export { connected, connection };
+export { connection };

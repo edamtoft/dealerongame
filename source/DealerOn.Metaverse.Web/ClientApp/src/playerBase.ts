@@ -1,4 +1,4 @@
-import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, PostCollisionEvent, Shape, Side } from "excalibur";
+import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, Font, PostCollisionEvent, Shape, Side, Text, TextAlign } from "excalibur";
 import { Direction, EquatablePlayerState, PlayerState } from "./playerState";
 import { PlayerColor, players } from "./resources";
 
@@ -7,6 +7,7 @@ const group = CollisionGroupManager.create("players");
 export abstract class PlayerBase extends Actor {
   protected onGround : boolean = false;
   protected facing : Direction = "right";
+  public playerId : number = 0;
   private playerColor : PlayerColor;
   
   constructor(name:string, x: number, y: number, color: PlayerColor, collisionType: CollisionType) {
@@ -45,6 +46,12 @@ export abstract class PlayerBase extends Actor {
     this.initializeGraphics("left");
     this.initializeGraphics("right");
     this.on("postcollision", e => this.onPostCollision(e));
+    const labelFont = new Font({ textAlign: TextAlign.Center  });
+    this.graphics.onPostDraw = ctx => {
+      if (this.playerId !== 0) {
+        new Text({ text: `${this.playerId}`, font: labelFont }).draw(ctx, 0, -40);
+      }
+    };
   }
 
   private initializeGraphics(side: Direction) : void {

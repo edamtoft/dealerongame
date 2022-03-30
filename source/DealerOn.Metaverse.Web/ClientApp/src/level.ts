@@ -5,7 +5,7 @@ import * as Theme from "./theme";
 import { Npc } from "./npc";
 import { Platform } from "./platform";
 import { Player } from "./player";
-import { connected, connection } from "./pushConnection";
+import { connection } from "./pushConnection";
 import { DealerOnLogo } from "./dealeronLogo";
 import { Trophy } from "./trophy";
 import { PlayerState } from "./playerState";
@@ -14,7 +14,7 @@ const rng = new Random();
 
 export class Level extends Scene {
   player!: Player;
-  others: Map<string,Npc> = new Map();
+  others: Map<number,Npc> = new Map();
   
   constructor() {
     super();
@@ -85,31 +85,33 @@ export class Level extends Scene {
     this.add(new Trophy(-2500, -20));
   }
 
-  async initializeConnection() : Promise<void> {
-    console.log("Connecting"); 
-    
-    await connected;
-    
-    console.log("Connected");
-
-    connection.on("playerUpdate", (id : string, state : PlayerState) => {
+  async initializeConnection() : Promise<void> {  
+    connection.on("playerUpdated", (id : number, state : PlayerState) => {
       if (!this.others.has(id)) {
-        const newPlayer = new Npc(id, state.x, state.y);
-        newPlayer.on("kill", e => this.others.delete(id));
+        const newPlayer = new Npc(`player-${id}`, id, state.x, state.y);
+        newPlayer.state = state;
+        newPlayer.on("kill", _ => this.others.delete(id));
         this.others.set(id, newPlayer);
         this.add(newPlayer);
-        newPlayer.state = state;
       } else {
         const other = this.others.get(id)!;
         other.state = state;
       }
     });
 
-    connection.on("playerLeft", (id : string) => {
+    connection.on("playerLeft", (id : number) => {
       const other = this.others.get(id);
       if (other) {
         other.kill();
       }
     });
+
+    console.log("Connecting to real-time server");
+
+    await connection.start();
+
+    connection.invoke("register", { name: "" })
+
+    console.log("Connected");
   }
 }
