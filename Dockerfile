@@ -1,6 +1,6 @@
 FROM node:16 AS js-build
 WORKDIR /build
-COPY source/DealerOn.Metaverse.Web/ClientApp/package.json source/DealerOn.Metaverse.Web/ClientApp/package.json .
+COPY source/DealerOn.Metaverse.Web/ClientApp/package.json source/DealerOn.Metaverse.Web/ClientApp/package-lock.json .
 RUN npm install
 COPY source/DealerOn.Metaverse.Web/ClientApp .
 RUN npm run build

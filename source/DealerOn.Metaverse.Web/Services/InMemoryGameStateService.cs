@@ -6,13 +6,13 @@ namespace DealerOn.Metaverse.Web.Services
 {
   public sealed class InMemoryGameStateService : IGameStateService
   {
-    private volatile int _nextId = 1;
+    private volatile int _id = 0;
     private readonly ConcurrentDictionary<string, Player> _players = new();
 
     public int UpdateState(string connection, PlayerState state)
     {
       var player = _players.AddOrUpdate(connection, 
-        _ => new Player(Interlocked.Increment(ref _nextId), state), 
+        _ => new Player(Interlocked.Increment(ref _id), state), 
         (_, player) => player with { State = state });
 
       return player.Id;
