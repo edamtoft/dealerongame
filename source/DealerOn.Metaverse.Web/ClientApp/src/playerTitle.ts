@@ -1,14 +1,10 @@
-import { Engine, Font, ScreenElement, Text, Vector } from "excalibur";
-import { Orange } from "./theme";
+import { Engine, ScreenElement, Text } from "excalibur";
+import { playerFontOrange } from "./resources";
 
 export class PlayerTitle extends ScreenElement {
   private label : Text = new Text({ 
-    text: "Connecting...", 
-    font: new Font({ 
-      family: "Play", 
-      size: 32,
-      color: Orange
-    })
+    text: "PLAYER 0", 
+    font: playerFontOrange
   });
   private getPlayerId: () => number;
 
@@ -24,7 +20,7 @@ export class PlayerTitle extends ScreenElement {
   onPreUpdate() {
     const playerId = this.getPlayerId();
     if (playerId !== 0) {
-      this.label.text = `Player ${playerId}`;
+      this.label.text = `PLAYER ${playerId}`;
     }
   }
 }

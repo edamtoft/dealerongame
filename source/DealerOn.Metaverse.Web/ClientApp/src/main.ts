@@ -7,7 +7,8 @@ const game = new Engine({
   width: 800,
   height: 600,
   backgroundColor: Theme.Light,
-  canvasElementId: "gamecanvas"
+  canvasElementId: "gamecanvas",
+  antialiasing: false,
 });
 
 Physics.gravity = new Vector(0, 500);

@@ -1,4 +1,5 @@
-import { Actor, Engine, Font, Text } from "excalibur";
+import { Actor, Engine, Text } from "excalibur";
+import { emojiFont } from "./resources";
 
 export class Emoji extends Actor {
   private text: string;
@@ -12,7 +13,7 @@ export class Emoji extends Actor {
   onInitialize(_engine: Engine): void {
     this.graphics.use(new Text({ 
       text: this.text,
-      font: new Font({ size: 36 })
+      font: emojiFont
     }));
   }
 }

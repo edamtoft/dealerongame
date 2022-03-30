@@ -46,7 +46,7 @@ export class Level extends Scene {
 
   private initializeFloatingPlatforms() {
     this.add(new Platform(0, 0, Theme.Gray, 20)); // ground
-    this.add(new Emoji(0, -50, "🔝"));
+    this.add(new Emoji(0, -50, "7"));
     this.add(new DealerOnLogo(200, -80));
     this.add(new Platform(150, -200, Theme.Gray, 4));
     this.add(new Platform(-200, -120, Theme.Gray, 3));
@@ -72,17 +72,17 @@ export class Level extends Scene {
     this.add(new Platform(1300, -950, Theme.Orange, 2));
     this.add(new Suv(950, -950));
     this.add(new Platform(400, -800, Theme.Blue, 10));
-    this.add(new Emoji(100, -850, "↖️"));
+    // this.add(new Emoji(100, -850, "↖️"));
     this.add(new Platform(50, -900, Theme.Blue, 1));
     this.add(new Platform(-200, -1000, Theme.Blue, 2, 1));
     this.add(new Platform(-400, -1100, Theme.Blue, 2, -1));
     this.add(new Platform(-600, -1200, Theme.Blue, 2, -1));
     this.add(new Platform(-1000, -1100, Theme.Blue, 3));
-    this.add(new Emoji(-1150, -1150, "↙️"));
+    this.add(new Emoji(-1150, -1150, "5"));
     this.add(new Sedan(-1400, -900));
     this.add(new Sedan(-1700, -800));
     this.add(new Sedan(-2000, -700));
-    this.add(new Emoji(-2100, -750, "↙️"));
+    this.add(new Emoji(-2100, -750, "5"));
     this.add(new Platform(-2500, 0, Theme.Sky, 3));
     this.add(new Trophy(-2500, -20));
   }

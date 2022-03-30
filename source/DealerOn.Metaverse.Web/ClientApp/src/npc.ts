@@ -1,6 +1,6 @@
 import { CollisionType, Engine, Font, Text, TextAlign } from "excalibur";
 import { PlayerBase } from "./playerBase";
-import { Blue } from "./theme";
+import { playerFontBlue } from "./resources";
 
 export class Npc extends PlayerBase {
   private label: Text;  
@@ -8,13 +8,8 @@ export class Npc extends PlayerBase {
     super(name, x, y, "Blue", CollisionType.Active);
     this.playerId = playerId;
     this.label = new Text({
-      text: `Player ${playerId}`,
-      font: new Font({
-        family: "Play",
-        textAlign: TextAlign.Center,
-        color: Blue,
-        size: 12
-      })
+      text: `PLAYER ${playerId}`,
+      font: playerFontBlue
     })
   }
 
