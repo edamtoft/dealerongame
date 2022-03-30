@@ -13,7 +13,7 @@ export class PlayerTitle extends ScreenElement {
   private getPlayerId: () => number;
 
   constructor(getPlayerId : () => number) {
-    super({ x: 12, y : 44 });
+    super({ x: 12, y : 44, z: 100 });
     this.getPlayerId = getPlayerId;
   }
 
