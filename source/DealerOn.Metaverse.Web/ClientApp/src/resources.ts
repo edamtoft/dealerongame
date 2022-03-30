@@ -18,32 +18,6 @@ loader.logoWidth = 155;
 loader.backgroundColor = "#274E91";
 loader.playButtonText = "Enter";
 
-const cars = new Map<CarModel,ImageSource>();
-cars.set("4Runner", new ImageSource(fourRunnerUrl));
-cars.set("Avalon", new ImageSource(avalonUrl))
-for (let resource of cars.values()) {
-  loader.addResource(resource);
-}
-
-
-
-const humanBlue = new ImageSource(humanBlueUrl);
-loader.addResource(humanBlue);
-const humanOrange = new ImageSource(humanOrangeUrl);
-loader.addResource(humanOrange);
-const players = new Map<PlayerColor,SpriteSheet>();
-const grid = {
-  columns: 8,
-  rows: 9,
-  spriteWidth: 64,
-  spriteHeight: 64
-};
-players.set("Orange", SpriteSheet.fromImageSource({ image: humanOrange, grid }));
-players.set("Blue", SpriteSheet.fromImageSource({ image: humanBlue, grid }));
-
-const logo = new ImageSource(logoUrl);
-loader.addResource(logo);
-
 function registerFont(source: string, spriteHeight: number, spriteWidth: number, columns: number, rows: number, alphabet: string) : SpriteFont {
   const image = new ImageSource(source);
 
@@ -57,8 +31,46 @@ function registerFont(source: string, spriteHeight: number, spriteWidth: number,
   return new SpriteFont({ spriteSheet, alphabet });
 }
 
+function registerCars() : Map<CarModel,ImageSource> {
+  const cars = new Map<CarModel,ImageSource>();
+  cars.set("4Runner", new ImageSource(fourRunnerUrl));
+  cars.set("Avalon", new ImageSource(avalonUrl))
+  for (let resource of cars.values()) {
+    loader.addResource(resource);
+  }
+  return cars;
+}
+
+function registerPlayers() : Map<PlayerColor,SpriteSheet> {
+  const humanBlue = new ImageSource(humanBlueUrl);
+  loader.addResource(humanBlue);
+  const humanOrange = new ImageSource(humanOrangeUrl);
+  loader.addResource(humanOrange);
+  const players = new Map<PlayerColor,SpriteSheet>();
+  const grid = {
+    columns: 8,
+    rows: 9,
+    spriteWidth: 64,
+    spriteHeight: 64
+  };
+  players.set("Orange", SpriteSheet.fromImageSource({ image: humanOrange, grid }));
+  players.set("Blue", SpriteSheet.fromImageSource({ image: humanBlue, grid }));
+  return players;
+}
+
+function registerLogo() : ImageSource {
+  const logo = new ImageSource(logoUrl);
+  loader.addResource(logo);
+  return logo;
+}
+
+const cars = registerCars();
+const players = registerPlayers();
+const logo = registerLogo();
+
 const playerFontBlue = registerFont(playerFontBlueUrl, 14, 7, 6, 3, "PLAYER0123456789 ");
 const playerFontOrange = registerFont(playerFontOrangeUrl, 64, 32, 6, 3, "PLAYER0123456789 ");
 const emojiFont = registerFont(emojiFontUrl, 40, 40, 3, 3, "012345678");
 
 export { players, loader, cars, logo, playerFontBlue, playerFontOrange, emojiFont };
+
