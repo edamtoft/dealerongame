@@ -1,4 +1,5 @@
 import { Actor, CollisionType, Engine, Shape, Vector } from "excalibur";
+import { collisionGroup } from "./platform";
 import { cars } from "./resources";
 
 export class Suv extends Actor {
@@ -6,7 +7,8 @@ export class Suv extends Actor {
     super({
       x, y, z: 30,
       collider: Shape.Capsule(90,50),
-      collisionType: CollisionType.Fixed
+      collisionType: CollisionType.Fixed,
+      collisionGroup
     });
   }
 

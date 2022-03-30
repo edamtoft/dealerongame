@@ -27,6 +27,6 @@ export const sendUpdate = throttle(async (player : Player) => {
   }
 
   lastUpdate = state;
-  const playerId = await connection.invoke("updateState", state);
-  player.playerId = playerId;
+
+  player.playerId = await connection.invoke<number>("updateState", state);
 }, UPDATE_FREQUENCY, { trailing: true, leading: true });

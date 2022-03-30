@@ -46,12 +46,6 @@ export abstract class PlayerBase extends Actor {
     this.initializeGraphics("left");
     this.initializeGraphics("right");
     this.on("postcollision", e => this.onPostCollision(e));
-    const labelFont = new Font({ textAlign: TextAlign.Center  });
-    this.graphics.onPostDraw = ctx => {
-      if (this.playerId !== 0) {
-        new Text({ text: `${this.playerId}`, font: labelFont }).draw(ctx, 0, -40);
-      }
-    };
   }
 
   private initializeGraphics(side: Direction) : void {

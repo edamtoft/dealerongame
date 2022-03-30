@@ -9,6 +9,8 @@ import { connection } from "./pushConnection";
 import { DealerOnLogo } from "./dealeronLogo";
 import { Trophy } from "./trophy";
 import { PlayerState } from "./playerState";
+import { PlayerTitle } from "./playerTitle";
+import { HubConnectionState } from "@microsoft/signalr";
 
 const rng = new Random();
 
@@ -21,6 +23,7 @@ export class Level extends Scene {
   }
 
   onInitialize(_engine: Engine): void {
+    this.add(new PlayerTitle(() => this.player.playerId));
     this.initializeFloatingPlatforms();
     this.spawnPlayer();
     this.initializeConnection();
@@ -33,13 +36,12 @@ export class Level extends Scene {
     //1300, -800
     //300, -900
     this.player = new Player(rng.integer(-25,25), -400);
-    this.player.on("kill", e => this.spawnPlayer());
+    this.player.once("kill", _ => this.spawnPlayer());
     this.add(this.player);
     this.camera.clearAllStrategies();
     this.camera.x = this.player.center.x;
     this.camera.y = this.player.center.y;
     this.camera.strategy.elasticToActor(this.player, 0.05, 0.1);
-    this.initializeConnection();
   }
 
   private initializeFloatingPlatforms() {
@@ -108,9 +110,9 @@ export class Level extends Scene {
 
     console.log("Connecting to real-time server");
 
-    await connection.start();
-
-    connection.invoke("register", { name: "" })
+    if (connection.state === HubConnectionState.Disconnected) {
+      await connection.start();
+    }
 
     console.log("Connected");
   }
