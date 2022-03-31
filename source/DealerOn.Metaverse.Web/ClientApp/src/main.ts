@@ -1,7 +1,7 @@
 import { Engine, Physics, Vector } from "excalibur";
-import * as Theme from "./theme";
-import { Level } from "./level";
-import { loader } from "./resources";
+import * as Theme from "./resources/theme";
+import { Level } from "./world/level";
+import { loader } from "./resources/sources";
 
 const game = new Engine({
   width: 800,

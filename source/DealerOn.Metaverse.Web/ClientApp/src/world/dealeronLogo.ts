@@ -1,5 +1,5 @@
 import { Actor, Engine } from "excalibur";
-import { logo } from "./resources";
+import { GameResource, imageSources } from "../resources/sources";
 
 export class DealerOnLogo extends Actor {
   constructor(x : number, y : number) {
@@ -9,6 +9,6 @@ export class DealerOnLogo extends Actor {
   }
   
   onInitialize(_engine: Engine): void {
-    this.graphics.use(logo.toSprite());
+    this.graphics.use(imageSources.get(GameResource.Logo_Dealeron)!.toSprite());
   }
 }

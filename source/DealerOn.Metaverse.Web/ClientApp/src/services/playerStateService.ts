@@ -1,7 +1,7 @@
 import { HubConnectionState } from "@microsoft/signalr";
 import { throttle } from "lodash";
-import { Player } from "./player";
-import { EquatablePlayerState } from "./playerState";
+import { Player } from "../player/player";
+import { EquatablePlayerState } from "../player/playerState";
 import { connection } from "./pushConnection";
 
 const UPDATE_FREQUENCY = 250;//ms

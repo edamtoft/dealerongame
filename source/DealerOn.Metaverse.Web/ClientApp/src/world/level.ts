@@ -1,17 +1,17 @@
 import { Engine, Random, Scene, Timer } from "excalibur";
 import { Emoji } from "./emoji";
 import { Sedan, Suv, Truck } from "./car";
-import * as Theme from "./theme";
-import { Npc } from "./npc";
+import * as Theme from "../resources/theme";
+import { Npc } from "../player/npc";
 import { Platform } from "./platform";
-import { Player } from "./player";
-import { connection } from "./pushConnection";
+import { Player } from "../player/player";
+import { connection } from "../services/pushConnection";
 import { DealerOnLogo } from "./dealeronLogo";
 import { Trophy } from "./trophy";
-import { PlayerState } from "./playerState";
-import { PlayerTitle } from "./playerTitle";
+import { PlayerState } from "../player/playerState";
+import { PlayerTitle } from "../ui/playerTitle";
 import { HubConnectionState } from "@microsoft/signalr";
-import { sendUpdate } from "./playerStateService";
+import { sendUpdate } from "../services/playerStateService";
 
 const rng = new Random();
 
