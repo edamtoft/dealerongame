@@ -1,6 +1,6 @@
 import { Engine, Random, Scene } from "excalibur";
 import { Emoji } from "./emoji";
-import { Sedan, Suv } from "./car";
+import { Sedan, Suv, Truck } from "./car";
 import * as Theme from "./theme";
 import { Npc } from "./npc";
 import { Platform } from "./platform";
@@ -45,7 +45,8 @@ export class Level extends Scene {
   }
 
   private initializeFloatingPlatforms() {
-    this.add(new Platform(0, 0, Theme.Gray, 20)); // ground
+    this.add(new Platform(0, 0, Theme.Gray, 30)); // ground
+    this.add(new Truck(500, -50));
     this.add(new Emoji(0, -50, "7"));
     this.add(new DealerOnLogo(200, -80));
     this.add(new Platform(150, -200, Theme.Gray, 4));
@@ -72,7 +73,6 @@ export class Level extends Scene {
     this.add(new Platform(1300, -950, Theme.Orange, 2));
     this.add(new Suv(950, -950));
     this.add(new Platform(400, -800, Theme.Blue, 10));
-    // this.add(new Emoji(100, -850, "↖️"));
     this.add(new Platform(50, -900, Theme.Blue, 1));
     this.add(new Platform(-200, -1000, Theme.Blue, 2, 1));
     this.add(new Platform(-400, -1100, Theme.Blue, 2, -1));

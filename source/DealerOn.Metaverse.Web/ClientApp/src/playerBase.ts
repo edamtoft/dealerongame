@@ -10,9 +10,9 @@ export abstract class PlayerBase extends Actor {
   public playerId : number = 0;
   private playerColor : PlayerColor;
   
-  constructor(name:string, x: number, y: number, color: PlayerColor, collisionType: CollisionType) {
+  constructor(name:string, x: number, y: number, z: number, color: PlayerColor, collisionType: CollisionType) {
     super({
-      name, x, y, z: 10,
+      name, x, y, z,
       collisionType,
       collider: Shape.Box(24,64),
       collisionGroup: group,

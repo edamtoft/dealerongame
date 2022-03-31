@@ -10,7 +10,7 @@ type Keys = {
 
 export class Player extends PlayerBase {
   constructor(x: number, y: number) {
-    super("player", x, y, "Orange",  CollisionType.Active);
+    super("player", x, y, 15, "Orange",  CollisionType.Active);
   }
 
   onPostCollision(e: PostCollisionEvent<Actor>): void {

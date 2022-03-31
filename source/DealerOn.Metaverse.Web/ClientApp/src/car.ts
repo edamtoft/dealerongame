@@ -30,3 +30,18 @@ export class Sedan extends Actor {
     this.graphics.use(cars.get("Avalon")!.toSprite());
   }
 }
+
+export class Truck extends Actor {
+  constructor(x : number, y : number) {
+    super({
+      x, y, z: 30,
+      collider: Shape.Box(140,23),
+      collisionType: CollisionType.Fixed,
+      collisionGroup
+    });
+  }
+
+  onInitialize(_engine: Engine): void {
+    this.graphics.use(cars.get("Silverado")!.toSprite());
+  }
+}

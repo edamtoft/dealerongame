@@ -4,11 +4,12 @@ import humanOrangeUrl from "../assets/human_being_orange.png";
 import logoUrl from "../assets/dealeron_small.png";
 import fourRunnerUrl from "../assets/cars/4Runner.png";
 import avalonUrl from "../assets/cars/Avalon.png";
+import silveradoUrl from "../assets/cars/Silverado.png";
 import playerFontBlueUrl from "../assets/playerfont_blue_small.png";
 import playerFontOrangeUrl from "../assets/playerfont_orange.png";
 import emojiFontUrl from "../assets/emojifont.png";
 
-export type CarModel = "4Runner"|"Avalon";
+export type CarModel = "4Runner"|"Avalon"|"Silverado";
 export type PlayerColor = "Blue"|"Orange";
 
 const loader = new Loader();
@@ -35,6 +36,7 @@ function registerCars() : Map<CarModel,ImageSource> {
   const cars = new Map<CarModel,ImageSource>();
   cars.set("4Runner", new ImageSource(fourRunnerUrl));
   cars.set("Avalon", new ImageSource(avalonUrl))
+  cars.set("Silverado", new ImageSource(silveradoUrl));
   for (let resource of cars.values()) {
     loader.addResource(resource);
   }
