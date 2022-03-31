@@ -31,7 +31,7 @@ export class Player extends PlayerBase {
     this.updateGraphics();
   }
 
-  onPostUpdate(_engine: Engine, _delta: number): void {
+  onPostUpdate(_engine: Engine, _delta: number) {
     super.onPostUpdate(_engine, _delta);
     sendUpdate(this);
   }

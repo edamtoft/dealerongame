@@ -1,4 +1,4 @@
-import { Engine, Random, Scene } from "excalibur";
+import { Engine, Random, Scene, Timer } from "excalibur";
 import { Emoji } from "./emoji";
 import { Sedan, Suv, Truck } from "./car";
 import * as Theme from "./theme";
@@ -11,19 +11,21 @@ import { Trophy } from "./trophy";
 import { PlayerState } from "./playerState";
 import { PlayerTitle } from "./playerTitle";
 import { HubConnectionState } from "@microsoft/signalr";
+import { sendUpdate } from "./playerStateService";
 
 const rng = new Random();
 
 export class Level extends Scene {
   player!: Player;
   others: Map<number,Npc> = new Map();
+  playerId: number = 0;
   
   constructor() {
     super();
   }
 
   onInitialize(_engine: Engine): void {
-    this.add(new PlayerTitle(() => this.player.playerId));
+    this.add(new PlayerTitle(() => this.playerId));
     this.initializeFloatingPlatforms();
     this.spawnPlayer();
     this.initializeConnection();
@@ -114,7 +116,7 @@ export class Level extends Scene {
       await connection.start();
     }
 
-    this.player.playerId = await connection.invoke("register");
+    this.playerId = await connection.invoke("getPlayerId");
 
     console.log("Connected");
   }

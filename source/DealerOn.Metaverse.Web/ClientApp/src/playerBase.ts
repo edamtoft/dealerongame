@@ -7,7 +7,6 @@ const group = CollisionGroupManager.create("players");
 export abstract class PlayerBase extends Actor {
   protected onGround : boolean = false;
   protected facing : Direction = "right";
-  public playerId : number = 0;
   private playerColor : PlayerColor;
   
   constructor(name:string, x: number, y: number, z: number, color: PlayerColor, collisionType: CollisionType) {

@@ -9,12 +9,21 @@ namespace DealerOn.Metaverse.Web.Hubs
     private readonly IGameStateService _game;
 
     public GameHub(IGameStateService game) => _game = game;
-    
-    public async Task<int> Register()
+
+    public override async Task OnConnectedAsync()
     {
       var registration = _game.Register(Context.ConnectionId);
       await Groups.AddToGroupAsync(Context.ConnectionId, $"room-{registration.Room}", Context.ConnectionAborted);
-      return registration.PlayerId;
+    }
+
+    public Task<int> GetPlayerId()
+    {
+      if (_game.TryFind(Context.ConnectionId, out var registration))
+      {
+        return Task.FromResult(registration.PlayerId);
+      }
+
+      return Task.FromResult(0);
     }
 
     public async Task UpdateState(PlayerState state)

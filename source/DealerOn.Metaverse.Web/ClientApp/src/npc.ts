@@ -6,7 +6,6 @@ export class Npc extends PlayerBase {
   private label: Text;  
   constructor(name: string, playerId: number, x: number, y: number) {
     super(name, x, y, 10, "Blue", CollisionType.Active);
-    this.playerId = playerId;
     this.label = new Text({
       text: `PLAYER ${playerId}`,
       font: playerFontBlue
