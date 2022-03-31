@@ -114,6 +114,8 @@ export class Level extends Scene {
       await connection.start();
     }
 
+    this.player.playerId = await connection.invoke("register");
+
     console.log("Connected");
   }
 }

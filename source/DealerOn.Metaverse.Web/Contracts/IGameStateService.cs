@@ -4,8 +4,8 @@ namespace DealerOn.Metaverse.Web.Contracts
 {
   public interface IGameStateService
   {
-    List<Player> GetAll();
-    int UpdateState(string connection, PlayerState state);
-    bool TryRemove(string connection, out int playerId);
+    PlayerRegistration Register(string connection);
+    bool TryFind(string connection, out PlayerRegistration registration);
+    bool TryRemove(string connection, out PlayerRegistration registration);
   }
 }

@@ -6,30 +6,30 @@ namespace DealerOn.Metaverse.Web.Services
 {
   public sealed class InMemoryGameStateService : IGameStateService
   {
+    private const int PlayersPerRoom = 250;
     private volatile int _id = 0;
-    private readonly ConcurrentDictionary<string, Player> _players = new();
+    private readonly ConcurrentDictionary<string, PlayerRegistration> _players = new();
 
-    public int UpdateState(string connection, PlayerState state)
+    public PlayerRegistration Register(string connection)
     {
-      var player = _players.AddOrUpdate(connection, 
-        _ => new Player(Interlocked.Increment(ref _id), state), 
-        (_, player) => player with { State = state });
-
-      return player.Id;
-    }
-
-
-    public bool TryRemove(string connection, out int playerId)
-    {
-      if (_players.TryRemove(connection, out var player))
+      return _players.GetOrAdd(connection, _ =>
       {
-        playerId = player.Id;
-        return true;
-      };
-      playerId = default;
-      return false;
+        var id = Interlocked.Increment(ref _id);
+        var room = id / PlayersPerRoom;
+        var playerId = id % PlayersPerRoom;
+        return new PlayerRegistration(room, playerId);
+      });
     }
 
-    public List<Player> GetAll() => _players.Values.ToList();
+    public bool TryFind(string connection, out PlayerRegistration registration)
+    {
+      return _players.TryGetValue(connection, out registration);
+    }
+
+
+    public bool TryRemove(string connection, out PlayerRegistration registration)
+    {
+      return _players.TryRemove(connection, out registration);
+    }
   }
 }

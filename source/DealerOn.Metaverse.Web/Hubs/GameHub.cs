@@ -10,18 +10,30 @@ namespace DealerOn.Metaverse.Web.Hubs
 
     public GameHub(IGameStateService game) => _game = game;
     
-    public async Task<int> UpdateState(PlayerState state)
+    public async Task<int> Register()
     {
-      var playerId = _game.UpdateState(Context.ConnectionId, state);
-      await Clients.Others.SendAsync("playerUpdated", playerId, state, Context.ConnectionAborted);
-      return playerId;
+      var registration = _game.Register(Context.ConnectionId);
+      await Groups.AddToGroupAsync(Context.ConnectionId, $"room-{registration.Room}", Context.ConnectionAborted);
+      return registration.PlayerId;
+    }
+
+    public async Task UpdateState(PlayerState state)
+    {
+      if (_game.TryFind(Context.ConnectionId, out var registration))
+      {
+        await Clients
+          .OthersInGroup($"room-{registration.Room}")
+          .SendAsync("playerUpdated", registration.PlayerId, state, Context.ConnectionAborted);
+      }
     }
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-      if (_game.TryRemove(Context.ConnectionId, out var playerId))
+      if (_game.TryRemove(Context.ConnectionId, out var registration))
       {
-        await Clients.Others.SendAsync("playerLeft", playerId);
+        await Clients
+          .OthersInGroup($"room-{registration.Room}")
+          .SendAsync("playerLeft", registration.PlayerId);
       }
     }
   }
