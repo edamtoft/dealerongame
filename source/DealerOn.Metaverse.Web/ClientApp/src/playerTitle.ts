@@ -1,4 +1,4 @@
-import { Engine, ScreenElement, Text } from "excalibur";
+import { ScreenElement, Text } from "excalibur";
 import { playerFontOrange } from "./resources";
 
 export class PlayerTitle extends ScreenElement {
@@ -13,14 +13,13 @@ export class PlayerTitle extends ScreenElement {
     this.getPlayerId = getPlayerId;
   }
 
-  onInitialize(_engine : Engine) : void {
-    this.graphics.use(this.label);
-  }
-
   onPreUpdate() {
     const playerId = this.getPlayerId();
     if (playerId !== 0) {
       this.label.text = `PLAYER ${playerId}`;
+      this.graphics.use(this.label);
+    } else {
+      this.graphics.hide();
     }
   }
 }
