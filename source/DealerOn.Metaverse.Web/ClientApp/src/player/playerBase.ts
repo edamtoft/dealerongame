@@ -1,15 +1,14 @@
-import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, Font, PostCollisionEvent, Shape, Side, Text, TextAlign } from "excalibur";
+import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, Font, PostCollisionEvent, Shape, Side, SpriteSheet, Text, TextAlign } from "excalibur";
 import { Direction, EquatablePlayerState, PlayerState } from "./playerState";
-import { PlayerColor, players } from "./resources";
 
 const group = CollisionGroupManager.create("players");
 
 export abstract class PlayerBase extends Actor {
   protected onGround : boolean = false;
   protected facing : Direction = "right";
-  private playerColor : PlayerColor;
+  private sprites : SpriteSheet;
   
-  constructor(name:string, x: number, y: number, z: number, color: PlayerColor, collisionType: CollisionType) {
+  constructor(name:string, x: number, y: number, z: number, sprites: SpriteSheet, collisionType: CollisionType) {
     super({
       name, x, y, z,
       collisionType,
@@ -18,7 +17,7 @@ export abstract class PlayerBase extends Actor {
       width: 80,
       height: 80
     });
-    this.playerColor = color;
+    this.sprites = sprites;
   }
 
   get state() : EquatablePlayerState {
@@ -48,11 +47,9 @@ export abstract class PlayerBase extends Actor {
   }
 
   private initializeGraphics(side: Direction) : void {
-    const sprites = players.get(this.playerColor)!;
-
-    const walk = Animation.fromSpriteSheet(sprites, [32,33,34,35,36,37,38,39], 60);
-    const idle = Animation.fromSpriteSheet(sprites, [64], 0);
-    const jump = Animation.fromSpriteSheet(sprites, [44], 0);
+    const walk = Animation.fromSpriteSheet(this.sprites, [32,33,34,35,36,37,38,39], 60);
+    const idle = Animation.fromSpriteSheet(this.sprites, [64], 0);
+    const jump = Animation.fromSpriteSheet(this.sprites, [44], 0);
 
     walk.flipHorizontal = side === "left";
     idle.flipHorizontal = side === "left";

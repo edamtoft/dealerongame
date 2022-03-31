@@ -1,6 +1,6 @@
-import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Scene, Side } from "excalibur";
+import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Side } from "excalibur";
 import { PlayerBase } from "./playerBase";
-import { sendUpdate } from "./playerStateService";
+import { playerOrange } from "../resources/playerSprites";
 
 type Keys = {
   left: boolean,
@@ -10,7 +10,7 @@ type Keys = {
 
 export class Player extends PlayerBase {
   constructor(x: number, y: number) {
-    super("player", x, y, 15, "Orange",  CollisionType.Active);
+    super("player", x, y, 15, playerOrange,  CollisionType.Active);
   }
 
   onPostCollision(e: PostCollisionEvent<Actor>): void {
@@ -22,18 +22,13 @@ export class Player extends PlayerBase {
   onPreUpdate(_engine: Engine, _delta: number): void {
     const left = _engine.input.keyboard.isHeld(Input.Keys.Left);
     const right = _engine.input.keyboard.isHeld(Input.Keys.Right);
-    const space = _engine.input.keyboard.isHeld(Input.Keys.Space);
+    const space = _engine.input.keyboard.wasPressed(Input.Keys.Space);
 
     const keys = { left, right, space };
 
     this.setXVelocity(keys);
     this.setYVelocity(keys);
     this.updateGraphics();
-  }
-
-  onPostUpdate(_engine: Engine, _delta: number) {
-    super.onPostUpdate(_engine, _delta);
-    sendUpdate(this);
   }
 
   private setYVelocity(keys : Keys) : void {

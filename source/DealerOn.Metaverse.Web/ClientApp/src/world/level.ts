@@ -1,17 +1,17 @@
 import { Engine, Random, Scene, Timer } from "excalibur";
 import { Emoji } from "./emoji";
 import { Sedan, Suv, Truck } from "./car";
-import * as Theme from "./theme";
-import { Npc } from "./npc";
+import * as Theme from "../resources/theme";
+import { Npc } from "../player/npc";
 import { Platform } from "./platform";
-import { Player } from "./player";
-import { connection } from "./pushConnection";
+import { Player } from "../player/player";
+import { connection } from "../services/pushConnection";
 import { DealerOnLogo } from "./dealeronLogo";
 import { Trophy } from "./trophy";
-import { PlayerState } from "./playerState";
-import { PlayerTitle } from "./playerTitle";
+import { PlayerState } from "../player/playerState";
+import { PlayerTitle } from "../ui/playerTitle";
 import { HubConnectionState } from "@microsoft/signalr";
-import { sendUpdate } from "./playerStateService";
+import { sendUpdate } from "../services/playerStateService";
 
 const rng = new Random();
 
@@ -19,16 +19,23 @@ export class Level extends Scene {
   player!: Player;
   others: Map<number,Npc> = new Map();
   playerId: number = 0;
-  
-  constructor() {
-    super();
-  }
 
   onInitialize(_engine: Engine): void {
     this.add(new PlayerTitle(() => this.playerId));
     this.initializeFloatingPlatforms();
     this.spawnPlayer();
+    this.addTimer(new Timer({
+      repeats: true,
+      interval: 250,
+      fcn: () => sendUpdate(this.player)
+    }));
     this.initializeConnection();
+  }
+
+  onActivate(_oldScene: Scene, _newScene: Scene): void {
+    for (let timer of this.timers) {
+      timer.start();
+    }
   }
 
   spawnPlayer() {

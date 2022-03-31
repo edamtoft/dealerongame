@@ -1,5 +1,5 @@
 import { ScreenElement, Text } from "excalibur";
-import { playerFontOrange } from "./resources";
+import { playerFontOrange } from "../resources/fonts";
 
 export class PlayerTitle extends ScreenElement {
   private label : Text = new Text({ 

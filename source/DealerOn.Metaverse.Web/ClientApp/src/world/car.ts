@@ -1,6 +1,6 @@
 import { Actor, CollisionType, Engine, Shape, Vector } from "excalibur";
 import { collisionGroup } from "./platform";
-import { cars } from "./resources";
+import { GameResource, imageSources } from "../resources/sources";
 
 export class Suv extends Actor {
   constructor(x : number, y : number) {
@@ -13,7 +13,7 @@ export class Suv extends Actor {
   }
 
   onInitialize(_engine: Engine): void {
-    this.graphics.use(cars.get("4Runner")!.toSprite());
+    this.graphics.use(imageSources.get(GameResource.Car_4Runner)!.toSprite());
   }
 }
 
@@ -27,7 +27,7 @@ export class Sedan extends Actor {
   }
 
   onInitialize(_engine: Engine): void {
-    this.graphics.use(cars.get("Avalon")!.toSprite());
+    this.graphics.use(imageSources.get(GameResource.Car_Avalon)!.toSprite());
   }
 }
 
@@ -42,6 +42,6 @@ export class Truck extends Actor {
   }
 
   onInitialize(_engine: Engine): void {
-    this.graphics.use(cars.get("Silverado")!.toSprite());
+    this.graphics.use(imageSources.get(GameResource.Car_Silverado)!.toSprite());
   }
 }

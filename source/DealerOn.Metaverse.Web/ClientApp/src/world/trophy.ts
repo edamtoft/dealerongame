@@ -1,5 +1,5 @@
 import { Actor, CollisionEndEvent, Engine, Text, Font, CollisionType, Shape, Vector } from "excalibur";
-import { Player } from "./player";
+import { Player } from "../player/player";
 
 export class Trophy extends Actor {
   constructor(x : number, y : number) {
