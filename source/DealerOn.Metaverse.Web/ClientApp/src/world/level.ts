@@ -19,16 +19,23 @@ export class Level extends Scene {
   player!: Player;
   others: Map<number,Npc> = new Map();
   playerId: number = 0;
-  
-  constructor() {
-    super();
-  }
 
   onInitialize(_engine: Engine): void {
     this.add(new PlayerTitle(() => this.playerId));
     this.initializeFloatingPlatforms();
     this.spawnPlayer();
+    this.addTimer(new Timer({
+      repeats: true,
+      interval: 250,
+      fcn: () => sendUpdate(this.player)
+    }));
     this.initializeConnection();
+  }
+
+  onActivate(_oldScene: Scene, _newScene: Scene): void {
+    for (let timer of this.timers) {
+      timer.start();
+    }
   }
 
   spawnPlayer() {

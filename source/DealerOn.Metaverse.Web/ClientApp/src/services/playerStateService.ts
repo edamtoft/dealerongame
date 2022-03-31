@@ -1,10 +1,7 @@
 import { HubConnectionState } from "@microsoft/signalr";
-import { throttle } from "lodash";
 import { Player } from "../player/player";
 import { EquatablePlayerState } from "../player/playerState";
 import { connection } from "./pushConnection";
-
-const UPDATE_FREQUENCY = 250;//ms
 
 let lastUpdateTime = 0;
 let lastUpdate : EquatablePlayerState = new EquatablePlayerState({
@@ -16,7 +13,7 @@ let lastUpdate : EquatablePlayerState = new EquatablePlayerState({
   onGround: true
 });
 
-export const sendUpdate = throttle(async (player : Player) => {
+export async function sendUpdate(player : Player) {
   const state = player.state;
   const now = Date.now();
   const timeSinceLastUpdate = now - lastUpdateTime; 
@@ -32,4 +29,4 @@ export const sendUpdate = throttle(async (player : Player) => {
   lastUpdate = state;
   lastUpdateTime = now;
   await connection.invoke("updateState", state);
-}, UPDATE_FREQUENCY, { trailing: true, leading: true,  });
+}

@@ -1,7 +1,6 @@
-import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Scene, Side } from "excalibur";
+import { Actor, CollisionType, Engine, Input, PostCollisionEvent, Side } from "excalibur";
 import { PlayerBase } from "./playerBase";
 import { playerOrange } from "../resources/playerSprites";
-import { sendUpdate } from "../services/playerStateService";
 
 type Keys = {
   left: boolean,
@@ -30,11 +29,6 @@ export class Player extends PlayerBase {
     this.setXVelocity(keys);
     this.setYVelocity(keys);
     this.updateGraphics();
-  }
-
-  onPostUpdate(_engine: Engine, _delta: number) {
-    super.onPostUpdate(_engine, _delta);
-    sendUpdate(this);
   }
 
   private setYVelocity(keys : Keys) : void {
