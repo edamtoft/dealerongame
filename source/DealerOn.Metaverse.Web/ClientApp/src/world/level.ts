@@ -45,8 +45,8 @@ export class Level extends Scene {
     //2300,-300
     //1300, -800
     //300, -900
-    this.player = new Player(-4100, -2850);
-    //this.player = new Player(rng.integer(-25,25), -50);
+    //this.player = new Player(-4100, -2850);
+    this.player = new Player(rng.integer(-25,25), -50);
     this.player.once("kill", _ => this.spawnPlayer());
     this.add(this.player);
     this.camera.clearAllStrategies();
@@ -56,17 +56,17 @@ export class Level extends Scene {
   }
 
   private initializeFloatingPlatforms() {
-    this.add(new Platform(0, 0, Theme.Gray, 30)); // ground
+    this.add(new Platform(0, 0, Theme.Blue, 30)); // ground
     this.add(new Truck(500, -50));
     this.add(new Emoji(0, -50, "7"));
     this.add(new DealerOnLogo(200, -80));
-    this.add(new Platform(150, -200, Theme.Gray, 4));
-    this.add(new Platform(-200, -120, Theme.Gray, 3));
-    this.add(new Platform(400, -250, Theme.Gray, 2));
-    this.add(new Platform(150, -350, Theme.Gray, 2));
-    this.add(new Platform(400, -450, Theme.Gray, 1));
-    this.add(new Platform(-750, -200, Theme.Gray, 10));
-    this.add(new Platform(-1300, -150, Theme.Gray, 5));
+    this.add(new Platform(150, -200, Theme.Orange, 4));
+    this.add(new Platform(-200, -120, Theme.Blue, 3));
+    this.add(new Platform(400, -250, Theme.Orange, 2));
+    this.add(new Platform(150, -350, Theme.Blue, 2));
+    this.add(new Platform(400, -450, Theme.Orange, 1));
+    this.add(new Platform(-750, -200, Theme.Blue, 10));
+    this.add(new Platform(-1300, -150, Theme.Orange, 5));
     this.add(new Suv(710, -450));
     this.add(new Platform(1000, -200, Theme.Sky, 4));
     this.add(new Platform(1300, -200, Theme.Sky, 2));
@@ -76,18 +76,18 @@ export class Level extends Scene {
     this.add(new Sedan(2300, -250));
     this.add(new Platform(2100, -320, Theme.Orange, 1));
     this.add(new Platform(1800, -400, Theme.Orange, 3));
-    this.add(new Platform(1450, -400, Theme.Orange, 3));
+    this.add(new Platform(1450, -400, Theme.Blue, 3));
     this.add(new Platform(1200, -520, Theme.Orange, 1));
     this.add(new Platform(1000, -650, Theme.Orange, 1));
-    this.add(new Platform(1300, -740, Theme.Orange, 3));
+    this.add(new Platform(1300, -740, Theme.Blue, 3));
     this.add(new Platform(1600, -850, Theme.Orange, 2));
-    this.add(new Platform(1300, -950, Theme.Orange, 2));
+    this.add(new Platform(1300, -950, Theme.Blue, 2));
     this.add(new Suv(950, -950));
     this.add(new Platform(400, -800, Theme.Blue, 10));
-    this.add(new Platform(50, -900, Theme.Blue, 1));
+    this.add(new Platform(50, -900, Theme.Orange, 1));
     this.add(new Platform(-200, -1000, Theme.Blue, 2, 1));
     this.add(new Platform(-400, -1100, Theme.Blue, 2, -1));
-    this.add(new Platform(-600, -1200, Theme.Blue, 2, -1));
+    this.add(new Platform(-600, -1200, Theme.Orange, 2, -1));
     this.add(new Platform(-1000, -1100, Theme.Blue, 3));
     this.add(new Emoji(-1150, -1150, "5"));
     this.add(new Sedan(-1400, -900));
@@ -126,7 +126,7 @@ export class Level extends Scene {
     this.add(new Truck(-4400, -2800));
     this.add(new Truck(-4700, -2800));
     this.add(new Truck(-5000, -2800));
-    this.add(new Platform(-5200, -2920, Theme.Gray));
+    this.add(new Platform(-5200, -2920, Theme.Blue));
     this.add(new Trophy(-5200, -3000));
   }
 

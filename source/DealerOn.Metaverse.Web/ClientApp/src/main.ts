@@ -6,7 +6,7 @@ import { loader } from "./resources/sources";
 const game = new Engine({
   width: 800,
   height: 600,
-  backgroundColor: Theme.Light,
+  backgroundColor: Theme.LightBLue,
   canvasElementId: "gamecanvas",
   antialiasing: false,
 });
