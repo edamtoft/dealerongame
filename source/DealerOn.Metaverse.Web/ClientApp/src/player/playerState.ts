@@ -6,7 +6,8 @@ export interface PlayerState {
   xVel : number,
   yVel : number,
   facing: Direction,
-  onGround: boolean
+  onGround: boolean,
+  score: number,
 };
 
 export class EquatablePlayerState implements PlayerState {
@@ -16,6 +17,7 @@ export class EquatablePlayerState implements PlayerState {
   yVel: number;
   facing: Direction;
   onGround: boolean;
+  score: number;
   
   constructor(state : PlayerState) {
     this.x = state.x;
@@ -24,6 +26,7 @@ export class EquatablePlayerState implements PlayerState {
     this.yVel = state.yVel;
     this.facing = state.facing;
     this.onGround = state.onGround;
+    this.score = state.score;
   }
     
   equals(other : PlayerState) : boolean {
@@ -33,6 +36,7 @@ export class EquatablePlayerState implements PlayerState {
       this.xVel === other.xVel && 
       this.yVel === other.yVel &&
       this.facing === other.facing &&
-      this.onGround === other.onGround;
+      this.onGround === other.onGround &&
+      this.score == other.score;
   }
 }

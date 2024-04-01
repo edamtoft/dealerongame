@@ -10,7 +10,8 @@ let lastUpdate : EquatablePlayerState = new EquatablePlayerState({
   xVel: 0,
   yVel: 0,
   facing: "left",
-  onGround: true
+  onGround: true,
+  score: 0
 });
 
 export async function sendUpdate(player : Player) {

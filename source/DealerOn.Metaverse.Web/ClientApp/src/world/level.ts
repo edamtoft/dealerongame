@@ -22,7 +22,7 @@ export class Level extends Scene {
   timer!: Timer;
 
   onInitialize(_engine: Engine): void {
-    this.add(new PlayerTitle(() => this.playerId));
+    this.add(new PlayerTitle(() => this.playerId,  () => this.player.score));
     this.initializeFloatingPlatforms();
     this.spawnPlayer();
     this.timer = new Timer({
@@ -45,7 +45,8 @@ export class Level extends Scene {
     //2300,-300
     //1300, -800
     //300, -900
-    this.player = new Player(rng.integer(-25,25), -400);
+    this.player = new Player(-4100, -2850);
+    //this.player = new Player(rng.integer(-25,25), -50);
     this.player.once("kill", _ => this.spawnPlayer());
     this.add(this.player);
     this.camera.clearAllStrategies();
@@ -94,7 +95,39 @@ export class Level extends Scene {
     this.add(new Sedan(-2000, -700));
     this.add(new Emoji(-2100, -750, "5"));
     this.add(new Platform(-2500, 0, Theme.Sky, 3));
-    this.add(new Trophy(-2500, -20));
+    this.add(new Platform(-2700, -100, Theme.Sky, 1, 1));
+    this.add(new Platform(-2900, -200, Theme.Sky, 1, 1));
+    this.add(new Platform(-3100, -300, Theme.Sky, 1, 1));
+    this.add(new Platform(-3350, -400, Theme.Sky, 2));
+    this.add(new Sedan(-3100, -550));
+    this.add(new Truck(-3350, -700));
+    this.add(new Suv(-3100, -850));
+    this.add(new Platform(-3300, -950, Theme.Sky, 1, 1));
+    this.add(new Platform(-3500, -1050, Theme.Sky, 1, 1));
+    this.add(new Platform(-3800, -1100, Theme.Sky, 3, -1.5));
+    this.add(new Sedan(-3550, -1250));
+    this.add(new Sedan(-3800, -1300));
+    this.add(new Sedan(-3550, -1400));
+    this.add(new Sedan(-3800, -1500));
+    this.add(new Truck(-3550, -1600));
+    this.add(new Suv(-3800, -1700));
+    this.add(new Sedan(-3550, -1800));
+    this.add(new Sedan(-3800, -1900));
+    this.add(new Truck(-3550, -2000));
+    this.add(new Platform(-3800, -2100, Theme.Orange, 2, 2));
+    this.add(new Platform(-3550, -2200, Theme.Blue, 2, 2));
+    this.add(new Platform(-3800, -2300, Theme.Orange, 2, -2));
+    this.add(new Platform(-3550, -2400, Theme.Blue, 2, -2));
+    this.add(new Platform(-3800, -2500, Theme.Orange, 2, -2));
+    this.add(new Platform(-3550, -2600, Theme.Blue, 2, -2));
+    this.add(new Platform(-3800, -2700, Theme.Orange, 2, -2));
+    this.add(new Truck(-3950, -2700));
+    this.add(new Truck(-4100, -2800));
+    this.add(new Truck(-4400, -2800));
+    this.add(new Truck(-4700, -2800));
+    this.add(new Truck(-5000, -2800));
+    this.add(new Platform(-5200, -2920, Theme.Gray));
+    this.add(new Trophy(-5200, -3000));
   }
 
   async initializeConnection() : Promise<void> {  

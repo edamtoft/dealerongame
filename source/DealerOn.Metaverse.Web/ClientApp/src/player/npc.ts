@@ -5,8 +5,11 @@ import { playerBlue } from "../resources/playerSprites";
 
 export class Npc extends PlayerBase {
   private label: Text;  
+  private playerId: number;
+
   constructor(name: string, playerId: number, x: number, y: number) {
     super(name, x, y, 10, playerBlue, CollisionType.Active);
+    this.playerId = playerId;
     this.label = new Text({
       text: `PLAYER ${playerId}`,
       font: playerFontBlue
@@ -15,8 +18,10 @@ export class Npc extends PlayerBase {
 
   onInitialize(_engine: Engine) {
     super.onInitialize(_engine);
-    const labelFont = new Font({ textAlign: TextAlign.Center  });
-    this.graphics.onPostDraw = ctx => this.label.draw(ctx, 0, -40);
+    this.graphics.onPostDraw = ctx => {
+      this.label.text = `PLAYER ${this.playerId} ${this.score}`
+      this.label.draw(ctx, 0, -40);
+    };
   }
 
   onPreUpdate(_engine: Engine, _delta: number): void {

@@ -6,5 +6,6 @@
     double XVel, 
     double YVel, 
     string Facing, 
-    bool OnGround);
+    bool OnGround,
+    int Score);
 }

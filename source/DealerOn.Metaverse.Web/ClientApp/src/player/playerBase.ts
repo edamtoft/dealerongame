@@ -7,6 +7,7 @@ export abstract class PlayerBase extends Actor {
   protected onGround : boolean = false;
   protected facing : Direction = "right";
   private sprites : SpriteSheet;
+  public score: number;
   
   constructor(name:string, x: number, y: number, z: number, sprites: SpriteSheet, collisionType: CollisionType) {
     super({
@@ -17,6 +18,7 @@ export abstract class PlayerBase extends Actor {
       width: 80,
       height: 80
     });
+    this.score = 0;
     this.sprites = sprites;
   }
 
@@ -27,7 +29,8 @@ export abstract class PlayerBase extends Actor {
       xVel: this.vel.x,
       yVel: this.vel.y,
       facing: this.facing,
-      onGround: this.onGround
+      onGround: this.onGround,
+      score: this.score
     });
   }
 
@@ -38,6 +41,7 @@ export abstract class PlayerBase extends Actor {
     this.vel.y = state.yVel;
     this.facing = state.facing;
     this.onGround = state.onGround;
+    this.score = state.score;
   }
 
   onInitialize(_engine: Engine): void {

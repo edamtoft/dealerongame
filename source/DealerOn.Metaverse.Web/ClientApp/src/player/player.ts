@@ -28,6 +28,7 @@ export class Player extends PlayerBase {
 
     this.setXVelocity(keys);
     this.setYVelocity(keys);
+    this.setScore();
     this.updateGraphics();
   }
 
@@ -52,5 +53,9 @@ export class Player extends PlayerBase {
     } else {
       this.vel.x = 0;
     }
+  }
+
+  private setScore() {
+    this.score = Math.max(this.score, Math.round(0 - this.pos.y))
   }
 }

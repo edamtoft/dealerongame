@@ -21,6 +21,9 @@ export class Trophy extends Actor {
   onCollisionEnd(e: CollisionEndEvent<Actor>): void {
     if (e.other instanceof Player) {
       this.actions.repeat(ctx => ctx.moveBy(0, -10, 50).moveBy(0, 10, 50), 2);
+      e.other.score += 10000;
+      e.other.pos.x = 0;
+      e.other.pos.y = -100;
     }
   }
 }
