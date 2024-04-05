@@ -12,6 +12,7 @@ import { PlayerState } from "../player/playerState";
 import { PlayerTitle } from "../ui/playerTitle";
 import { HubConnectionState } from "@microsoft/signalr";
 import { sendUpdate } from "../services/playerStateService";
+import { score } from "../symbols";
 
 const rng = new Random();
 
@@ -22,7 +23,7 @@ export class Level extends Scene {
   timer!: Timer;
 
   onInitialize(_engine: Engine): void {
-    this.add(new PlayerTitle(() => this.playerId,  () => this.player.score));
+    this.add(new PlayerTitle(() => this.playerId,  () => this.player[score]));
     this.initializeFloatingPlatforms();
     this.spawnPlayer();
     this.timer = new Timer({
@@ -56,7 +57,7 @@ export class Level extends Scene {
   }
 
   private initializeFloatingPlatforms() {
-    this.add(new Platform(0, 0, Theme.Blue, 30)); // ground
+    this.add(new Platform(0, 0, Theme.Blue, 30, 0, 0)); // ground
     this.add(new Truck(500, -50));
     this.add(new Emoji(0, -50, "7"));
     this.add(new DealerOnLogo(200, -80));

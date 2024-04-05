@@ -9,6 +9,7 @@ const game = new Engine({
   backgroundColor: Theme.LightBLue,
   canvasElementId: "gamecanvas",
   antialiasing: false,
+  suppressConsoleBootMessage: true
 });
 
 Physics.gravity = new Vector(0, 500);
@@ -18,3 +19,9 @@ game.addScene("level", level);
 game.goToScene("level");
 
 game.start(loader);
+
+declare global {
+  interface Window { ___EXCALIBUR_DEVTOOL?: any }
+}
+
+delete(window.___EXCALIBUR_DEVTOOL);

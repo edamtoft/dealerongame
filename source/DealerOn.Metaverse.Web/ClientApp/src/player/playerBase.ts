@@ -1,13 +1,14 @@
 import { Actor, Animation, CollisionGroupManager, CollisionType, Engine, Font, PostCollisionEvent, Shape, Side, SpriteSheet, Text, TextAlign } from "excalibur";
 import { Direction, EquatablePlayerState, PlayerState } from "./playerState";
+import { onGround, score } from "../symbols";
 
 const group = CollisionGroupManager.create("players");
 
 export abstract class PlayerBase extends Actor {
-  protected onGround : boolean = false;
+  protected [onGround] : boolean = false;
   protected facing : Direction = "right";
   private sprites : SpriteSheet;
-  public score: number;
+  public [score]: number;
   
   constructor(name:string, x: number, y: number, z: number, sprites: SpriteSheet, collisionType: CollisionType) {
     super({
@@ -18,7 +19,7 @@ export abstract class PlayerBase extends Actor {
       width: 80,
       height: 80
     });
-    this.score = 0;
+    this[score] = 0;
     this.sprites = sprites;
   }
 
@@ -29,8 +30,8 @@ export abstract class PlayerBase extends Actor {
       xVel: this.vel.x,
       yVel: this.vel.y,
       facing: this.facing,
-      onGround: this.onGround,
-      score: this.score
+      onGround: this[onGround],
+      score: this[score]
     });
   }
 
@@ -40,8 +41,8 @@ export abstract class PlayerBase extends Actor {
     this.vel.x = state.xVel;
     this.vel.y = state.yVel;
     this.facing = state.facing;
-    this.onGround = state.onGround;
-    this.score = state.score;
+    this[onGround] = state.onGround;
+    this[score] = state.score;
   }
 
   onInitialize(_engine: Engine): void {
@@ -72,14 +73,14 @@ export abstract class PlayerBase extends Actor {
 
   onPostCollision(e: PostCollisionEvent<Actor>): void {
     if (e.side === Side.Bottom) {
-      this.onGround = true;
+      this[onGround] = true;
     }
   }
 
   abstract onPreUpdate(_engine: Engine, _delta: number): void;
   
   protected updateGraphics() {
-    if (!this.onGround) {
+    if (!this[onGround]) {
       this.graphics.use(`jump-${this.facing}`);
       return;
     }

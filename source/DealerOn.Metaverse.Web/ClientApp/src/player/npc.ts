@@ -2,6 +2,7 @@ import { CollisionType, Engine, Font, Text, TextAlign } from "excalibur";
 import { playerFontBlue } from "../resources/fonts";
 import { PlayerBase } from "./playerBase";
 import { playerBlue } from "../resources/playerSprites";
+import { score } from "../symbols";
 
 export class Npc extends PlayerBase {
   private label: Text;  
@@ -19,7 +20,7 @@ export class Npc extends PlayerBase {
   onInitialize(_engine: Engine) {
     super.onInitialize(_engine);
     this.graphics.onPostDraw = ctx => {
-      this.label.text = `PLAYER ${this.playerId} ${this.score}`
+      this.label.text = `PLAYER ${this.playerId} ${this[score]}`
       this.label.draw(ctx, 0, -40);
     };
   }

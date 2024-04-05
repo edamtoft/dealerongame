@@ -1,5 +1,6 @@
 import { Actor, CollisionEndEvent, Engine, Text, Font, CollisionType, Shape, Vector } from "excalibur";
 import { Player } from "../player/player";
+import { platforms, score } from "../symbols";
 
 export class Trophy extends Actor {
   constructor(x : number, y : number) {
@@ -21,7 +22,8 @@ export class Trophy extends Actor {
   onCollisionEnd(e: CollisionEndEvent<Actor>): void {
     if (e.other instanceof Player) {
       this.actions.repeat(ctx => ctx.moveBy(0, -10, 50).moveBy(0, 10, 50), 2);
-      e.other.score += 10000;
+      e.other[score] += 10000;
+      e.other[platforms].clear();
       e.other.pos.x = 0;
       e.other.pos.y = -100;
     }

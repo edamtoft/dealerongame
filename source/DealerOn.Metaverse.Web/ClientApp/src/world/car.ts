@@ -1,8 +1,13 @@
 import { Actor, CollisionType, Engine, Shape, Vector } from "excalibur";
 import { collisionGroup } from "./platform";
 import { GameResource, imageSources } from "../resources/sources";
+import { ScorePlatform, getPlatformId } from "./scorePlatform";
+import { platformId, platformScore } from "../symbols";
 
-export class Suv extends Actor {
+export class Suv extends Actor implements ScorePlatform {
+  public [platformId] : number = getPlatformId();
+  public [platformScore] : number = 50;
+  
   constructor(x : number, y : number) {
     super({
       x, y, z: 30,
@@ -17,7 +22,10 @@ export class Suv extends Actor {
   }
 }
 
-export class Sedan extends Actor {
+export class Sedan extends Actor implements ScorePlatform {
+  public [platformId] : number = getPlatformId();
+  public [platformScore] : number = 50;
+  
   constructor(x : number, y : number) {
     super({
       x, y, z: 30,
@@ -31,7 +39,10 @@ export class Sedan extends Actor {
   }
 }
 
-export class Truck extends Actor {
+export class Truck extends Actor implements ScorePlatform {
+  public [platformId] : number = getPlatformId();
+  public [platformScore] : number = 50;
+  
   constructor(x : number, y : number) {
     super({
       x, y, z: 30,
