@@ -34,9 +34,16 @@ export class Player extends PlayerBase {
   onPreUpdate(_engine: Engine, _delta: number): void {
     const left = _engine.input.keyboard.isHeld(Input.Keys.Left);
     const right = _engine.input.keyboard.isHeld(Input.Keys.Right);
+    const a = _engine.input.keyboard.isHeld(Input.Keys.A);
+    const d = _engine.input.keyboard.isHeld(Input.Keys.D);
+    const w = _engine.input.keyboard.isHeld(Input.Keys.W);
     const space = _engine.input.keyboard.wasPressed(Input.Keys.Space);
 
-    const keys = { left, right, space };
+    const keys = { 
+      left: left || a, 
+      right: right || d, 
+      space: space || w 
+    };
 
     this.setXVelocity(keys);
     this.setYVelocity(keys);
